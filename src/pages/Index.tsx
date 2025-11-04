@@ -4,11 +4,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [birthDate, setBirthDate] = useState('');
   const [lifePathNumber, setLifePathNumber] = useState<number | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: ''
+  });
+  const { toast } = useToast();
 
   const calculateLifePath = () => {
     if (!birthDate) return;
@@ -21,6 +32,23 @@ export default function Index() {
     }
     
     setLifePathNumber(sum);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    toast({
+      title: 'Заявка отправлена! ✨',
+      description: 'Мы свяжемся с вами в ближайшее время.',
+    });
+    
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      service: '',
+      message: ''
+    });
   };
 
   const services = [
@@ -316,6 +344,104 @@ export default function Index() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-24 px-4 bg-gradient-to-br from-primary/10 via-background to-accent/10">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-heading mb-4 text-glow">Записаться на консультацию</h2>
+            <p className="text-xl text-muted-foreground">Откройте для себя магию чисел и силу визуального повествования</p>
+          </div>
+          
+          <Card className="card-glow border-primary/30">
+            <CardHeader>
+              <CardTitle className="text-3xl font-heading">Заполните форму</CardTitle>
+              <CardDescription className="text-base">
+                Мы подберём для вас идеальную услугу на основе ваших целей
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-base">Ваше имя *</Label>
+                    <Input
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Введите ваше имя"
+                      className="text-base"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-base">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="your@email.com"
+                      className="text-base"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone" className="text-base">Телефон</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+7 (___) ___-__-__"
+                      className="text-base"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="service" className="text-base">Интересующая услуга *</Label>
+                    <Select
+                      required
+                      value={formData.service}
+                      onValueChange={(value) => setFormData({ ...formData, service: value })}
+                    >
+                      <SelectTrigger className="text-base">
+                        <SelectValue placeholder="Выберите услугу" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="numerology">Нумерологический анализ</SelectItem>
+                        <SelectItem value="video">Видеомонтаж</SelectItem>
+                        <SelectItem value="horoscope">Персональный видео-гороскоп</SelectItem>
+                        <SelectItem value="branding">Брендинг по числам</SelectItem>
+                        <SelectItem value="other">Другое</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message" className="text-base">Сообщение</Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Расскажите о вашем запросе или задайте вопрос..."
+                    className="min-h-32 text-base"
+                  />
+                </div>
+
+                <Button type="submit" size="lg" className="w-full text-lg card-glow">
+                  <Icon name="Send" className="mr-2" />
+                  Отправить заявку
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
