@@ -21,6 +21,13 @@ export default function Index() {
   });
   const { toast } = useToast();
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const calculateLifePath = () => {
     if (!birthDate) return;
     
@@ -160,11 +167,20 @@ export default function Index() {
             Создаём визуальные истории, основанные на энергии чисел.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" className="text-lg card-glow">
+            <Button 
+              size="lg" 
+              className="text-lg card-glow"
+              onClick={() => scrollToSection('calculator')}
+            >
               <Icon name="Sparkles" className="mr-2" />
               Рассчитать число судьбы
             </Button>
-            <Button size="lg" variant="outline" className="text-lg">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg"
+              onClick={() => scrollToSection('portfolio')}
+            >
               <Icon name="Video" className="mr-2" />
               Портфолио видео
             </Button>
@@ -172,7 +188,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4">
+      <section id="services" className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-heading text-center mb-4 text-glow">Услуги</h2>
           <p className="text-center text-muted-foreground mb-16 text-lg">
@@ -194,7 +210,17 @@ export default function Index() {
                   <CardDescription className="text-base">{service.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-accent text-xl font-semibold">{service.price}</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-accent text-xl font-semibold">{service.price}</p>
+                    <Button 
+                      size="sm" 
+                      variant="ghost"
+                      onClick={() => scrollToSection('contact')}
+                      className="hover:text-primary"
+                    >
+                      Записаться
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -202,7 +228,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-card/30">
+      <section id="calculator" className="py-24 px-4 bg-card/30">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-heading text-center mb-16 text-glow">
             Нумерологический калькулятор
@@ -253,7 +279,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4">
+      <section id="portfolio" className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-heading text-center mb-16 text-glow">Портфолио</h2>
           
@@ -295,7 +321,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-card/30">
+      <section id="testimonials" className="py-24 px-4 bg-card/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-heading text-center mb-16 text-glow">Отзывы</h2>
           
@@ -317,7 +343,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4">
+      <section id="blog" className="py-24 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-heading text-center mb-16 text-glow">Блог</h2>
           
@@ -347,7 +373,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-24 px-4 bg-gradient-to-br from-primary/10 via-background to-accent/10">
+      <section id="contact" className="py-24 px-4 bg-gradient-to-br from-primary/10 via-background to-accent/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-heading mb-4 text-glow">Записаться на консультацию</h2>
