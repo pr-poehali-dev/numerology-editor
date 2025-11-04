@@ -139,24 +139,14 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
-        
-        <div className="absolute inset-0 opacity-30">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-6xl font-heading text-primary/10 animate-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }}
-            >
-              {Math.floor(Math.random() * 9) + 1}
-            </div>
-          ))}
-        </div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(https://cdn.poehali.dev/projects/049fd99a-b4d7-4c3c-a940-73b2fe2d2451/files/9b8a8599-2b5e-467c-9101-7423dcbaf450.jpg)',
+            filter: 'brightness(0.4)'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background" />
 
         <div className="relative z-10 max-w-5xl text-center space-y-8 animate-fade-in">
           <h1 className="text-7xl md:text-8xl lg:text-9xl font-heading font-bold text-glow">
@@ -234,9 +224,14 @@ export default function Index() {
             Нумерологический калькулятор
           </h2>
           
-          <Card className="card-glow border-primary/30">
-            <CardHeader>
-              <CardTitle className="text-3xl font-heading">Рассчитайте число жизненного пути</CardTitle>
+          <Card className="card-glow border-primary/30 overflow-hidden">
+            <div className="relative h-48 bg-cover bg-center" style={{
+              backgroundImage: 'url(https://cdn.poehali.dev/projects/049fd99a-b4d7-4c3c-a940-73b2fe2d2451/files/268436bd-8075-4ce5-9262-1d7855454819.jpg)'
+            }}>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card" />
+            </div>
+            <CardHeader className="-mt-12 relative z-10">
+              <CardTitle className="text-3xl font-heading text-glow">Рассчитайте число жизненного пути</CardTitle>
               <CardDescription className="text-base">
                 Введите дату рождения и узнайте своё главное число
               </CardDescription>
@@ -292,9 +287,13 @@ export default function Index() {
             
             <TabsContent value="all" className="grid md:grid-cols-3 gap-6">
               {portfolio.map((item, idx) => (
-                <Card key={idx} className="card-glow border-primary/20 hover:border-primary/50 transition-all hover:scale-105">
-                  <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
-                    <Icon name="Play" size={48} className="text-primary" />
+                <Card key={idx} className="card-glow border-primary/20 hover:border-primary/50 transition-all hover:scale-105 overflow-hidden">
+                  <div className="aspect-video bg-cover bg-center relative group" style={{
+                    backgroundImage: 'url(https://cdn.poehali.dev/projects/049fd99a-b4d7-4c3c-a940-73b2fe2d2451/files/9bc56609-5d63-45fd-9510-6b550c54338c.jpg)'
+                  }}>
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex items-center justify-center">
+                      <Icon name="Play" size={48} className="text-white drop-shadow-lg" />
+                    </div>
                   </div>
                   <CardHeader>
                     <CardTitle className="text-xl font-heading">{item.title}</CardTitle>
